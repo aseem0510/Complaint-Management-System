@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+
+    <head>
+        
+        <!-- Required meta tags -->
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+        <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+
+        {% block head %}
+
+        {% endblock head%}
+        
+
+        <title>{% block title %} {% endblock title %} | Complaint Management System</title>
+
+        <style>
+
+            .navbar-inverse {
+                background-color: #222;
+                border-color: #080808;
+            }
+            
+            @media (min-width: 768px)
+            {
+                .navbar {
+                    border-radius: 0px;
+                }
+            }
+            
+            .navbar {
+                margin-bottom: 0px;
+            }
+
+
+            .alert {
+                margin-bottom: 0rem;
+            }
+            
+            
+            {% block style %}
+
+            {% endblock style%}
+
+
+        </style>
+
+    </head>
+
+    <body>
+
+        {% block body %}
+
+        {% endblock body %}
+
+
+
+        <div class= "navbar navbar-inverse navbar-static-bottom" role="navigation">
+            <div class="navbar-text pull-left">
+            </div>
+            <div class="navbar-text pull-left">
+            </div>
+            <div class="navbar-text pull-left">
+            </div>
+
+            <div class="navbar-text pull-left">
+                <!-- Facebook -->
+                <a class="btn btn-primary" style="background-color: #3b5998;" href="https://www.facebook.com/aseem.saxena.946" role="button"
+                ><i class="fab fa-facebook-f"></i
+                ></a>
+
+                <!-- Instagram -->
+                <a class="btn btn-primary" style="background-color: #ac2bac;" href="#!" role="button"
+                ><i class="fab fa-instagram"></i
+                ></a>
+
+                <!-- Linkedin -->
+                <a class="btn btn-primary" style="background-color: #0082ca;" href="http://linkedin.com/in/aseem-ranjan-9b487b194" role="button"
+                ><i class="fab fa-linkedin-in"></i
+                ></a>
+
+                <!-- Github -->
+                <a class="btn btn-primary" style="background-color: #333333;" href="https://github.com/aseem0510" role="button"
+                ><i class="fab fa-github"></i
+                ></a>
+
+
+            </div>
+
+            <div class="navbar-text pull-left">
+            </div>
+
+            <!--Below is the copyright information for the site. -->
+            <div class="navbar-text pull-left">
+                &copy; Aseem Ranjan, 2021
+            </div>
+        
+        </div>	
+    
+
+
+
+        <script src="{% static 'js/jquery.js' %}"></script>
+        <script src="{% static 'js/popper.js' %}"></script>
+        <script src="{% static 'js/all.min.js' %}"></script>
+        <script src="{% static 'js/bootstrap.js' %}"></script>
+
+    
+    </body>
+
+
+
+</html>

@@ -1,0 +1,193 @@
+{% extends 'base.html' %}
+
+
+{% block head %}
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock head %}
+
+
+{% block title %}
+        
+    Registration
+        
+{% endblock title %}  
+
+
+{% block style %}
+
+    .glyphicon-user:before 
+    {
+        content: "\e136";
+    }
+
+    .glyphicon-log-in:before
+    {
+        content:"\e111"
+    }
+
+    .glyphicon-log-out:before
+    {
+        content:"\e111"
+    }
+
+    /* for messages */ 
+    .alert {
+        padding: 15px;
+        margin-bottom: 0px;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+
+
+        
+    .mt-4 {
+        margin-top: 3rem !important;
+    }
+
+    @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800&display=swap");
+
+    body {
+        background-color: #eee;
+        font-family: "Poppins", sans-serif;
+        font-weight: 300
+    }
+
+    .card {
+        width: 400px;
+        border: none
+    }
+
+    .form-control {
+        border: 2px solid #bdc1d2;
+        font-size: 13px;
+        height: 48px
+    }
+
+    .form-control:focus {
+        color: #495057;
+        background-color: #fff;
+        border-color: #f7bfd9;
+        outline: 0;
+        box-shadow: none
+    }
+
+    .mr-10{
+        margin-right: 30rem!important;
+    }
+
+{% endblock style %}
+        
+        
+{% block body %}
+
+
+    {% if messages %}
+    {% for message in messages %}
+
+    <div class="alert alert-warning">
+
+        <strong>{{ message }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+
+    </div>
+
+    {% endfor %}
+    {% endif %}
+
+
+    <div class="container pb-5 pt-4">
+
+        <div class="container">
+
+            <ul class="nav pull-right">
+
+                <li>
+                    <h2 align="center" style="color:black"><a href="/" style="color:rgb(0, 0, 0)">CMS | (Student/Faculty) Registration</a></h2>
+                </li>
+                   
+                <li>
+                    <div class="mr-10">
+                    </div>
+                </li>               
+                
+                <li>
+                    <a href="/" class="btn btn-outline-primary" role="button">Back</a>
+                </li>
+
+            </ul>
+        
+        </div>
+
+
+        <hr />
+
+        <form action="/accounts/registration" method="POST">
+
+            {% csrf_token %}
+            <h3 class="form-login-heading text-center">Registration Form</h3>
+
+
+            <div class="form-group pt-3">
+
+                <label for="usr">First Name:</label>
+                <input type="text" class="form-control" id="usr" placeholder="Aseem" name="first_name" required autofocus>
+                
+            </div>
+
+            <div class="form-group pt-3">
+
+                <label for="usr">Last Name:</label>
+                <input type="text" class="form-control" id="usr" placeholder="Ranjan" name="last_name" required autofocus>
+                
+            </div>
+                
+            <div class="form-group">
+
+                <label for="usr">Username:</label>
+                <input type="text" class="form-control" id="usr" placeholder="Username" name="username" required>
+                
+            </div> 
+
+            <div class="form-group">
+
+                <label for="email">Email:</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter Email" name="email" required>
+                
+            </div>
+
+            <div class="form-group">
+
+                <label for="inputPassword">Password:</label>
+                <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password1" required>
+                
+            </div>
+
+            <div class="form-group">
+
+                <label for="inputPassword">Confirm Password:</label>
+                <input type="password" id="inputPassword" class="form-control" placeholder="Confirm Password" name="password2" required>
+                
+            </div>
+                
+            <button type="submit" class="btn btn-success mt-2">Submit</button>
+            
+            <div class="form-group text-center mt-5">
+                Already Registered?<br/>
+                <a class="" href="/accounts/login">Sign in</a>
+            </div>
+
+            <p class="mt-4 text-muted, text-center">&copy; Aseem Ranjan, 2021</p>
+                    
+        </form>
+        
+    </div>
+
+{% endblock body %}
+
