@@ -4,3 +4,6 @@ from django.shortcuts import render, HttpResponse
 
 def dashboard(request):
     return render(request, 'catalog/dashboard.html')
+
+def changePassword(request):
+    return render(request, 'catalog/changePassword.html')
