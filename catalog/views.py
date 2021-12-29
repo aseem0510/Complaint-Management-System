@@ -4,6 +4,8 @@ from django.contrib import messages
 
 from django.contrib.auth.models import User
 
+from django.contrib.auth import authenticate
+
 # Create your views here.
 
 def dashboard(request):
@@ -18,25 +20,30 @@ def changePassword(request):
         newPassword = request.POST.get("newPassword")
         confPassword = request.POST.get("confPassword")
         
-        
-        from django.contrib.auth import authenticate
-        user = authenticate(username=username, password=currPassword)
+        u = authenticate(username=username, password=currPassword)
 
-        if user is not None:
+        if u is not None:
                 
             if newPassword == confPassword:
                 
-                user.set_password(newPassword)
-                user.save()
+                u.set_password(newPassword)
+                u.save()
                 
                 messages.success(request, "Password Change !!")
+                
                 return redirect("/catalog/changePassword")
             
             else:
-                print("Passwords doesn't match")
+                messages.warning(request, "Passwords doesn't match")
+                
+                return redirect("/catalog/changePassword")
         
         else:
-            print("Wrong Current Password")
+            messages.warning(request, "Wrong Current Password")
+            
+            return redirect("/catalog/changePassword")
     
     else:
+        
+        
         return render(request, 'catalog/changePassword.html')
