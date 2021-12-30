@@ -11,6 +11,7 @@ from django.contrib.auth import authenticate
 def dashboard(request):
     return render(request, 'catalog/dashboard.html')
 
+"""
 def changePassword(request):
     
     if request.method == "POST":
@@ -45,5 +46,6 @@ def changePassword(request):
     
     else:
         
-        
         return render(request, 'catalog/changePassword.html')
+
+"""
