@@ -49,3 +49,21 @@ def changePassword(request):
         return render(request, 'catalog/changePassword.html')
 
 """
+
+def profile(request):
+    
+    if request.method == "POST":
+        email = request.POST.get("email")
+        phone = request.POST.get("phone")
+        idNumber = request.POST.get("idNumber")
+        department = request.POST.get("department")
+        designation = request.POST.get("designation")
+        gender = request.POST.get("gender")
+        category = request.POST.get("category")
+        
+        print(email, phone, idNumber, department, designation, gender, category)
+        
+        return redirect("/catalog/dashboard")
+    
+    else:
+        return render(request, "catalog/profile.html")
