@@ -6,6 +6,8 @@ from django.contrib.auth.models import User
 
 from django.contrib.auth import authenticate
 
+from catalog.models import UserInfo
+
 # Create your views here.
 
 def dashboard(request):
@@ -61,9 +63,44 @@ def profile(request):
         gender = request.POST.get("gender")
         category = request.POST.get("category")
         
-        print(email, phone, idNumber, department, designation, gender, category)
+        # print(type(email), type(phone), type(idNumber), type(department), type(designation), type(gender), type(category))
         
-        return redirect("/catalog/dashboard")
+        temp = request.user
+        
+        if email != "":
+            temp.email = email
+            temp.save()
+        
+        temp1 = temp.detail
+        
+        if temp is not None:
+            
+            if phone != "":
+                temp1.phone = phone
+            
+            if idNumber != "":
+                temp1.idNumber = idNumber
+            
+            if department != "":
+                temp1.department = department
+            
+            if designation != "":
+                temp1.designation = designation
+            
+            if gender != "":
+                temp1.gender = gender
+            
+            if category != "":
+                temp1.category = category
+            
+            temp1.save()
+            
+        else:
+            u = UserInfo(phone=phone, idNumber=idNumber, department=department, designation=designation, gender=gender, category=category, user_Id=temp)
+            u.save()
+        
+        messages.success(request, "Profile Updated!!")
+        return redirect("/catalog/profile")
     
     else:
         return render(request, "catalog/profile.html")
