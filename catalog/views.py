@@ -8,6 +8,8 @@ from django.contrib.auth import authenticate
 
 from catalog.models import UserInfo, ComplaintDetail
 
+from collections import defaultdict
+
 # Create your views here.
 
 def dashboard(request):
@@ -119,7 +121,32 @@ def NewComplaint(request):
         comp = ComplaintDetail(typeOfComplaint=typeOfComplaint, complaintDetail=complaintDetail, user_Key=temp)
         comp.save()
         
-        return redirect("/catalog/dashboard")
+        messages.success(request, "Complaint Submitted!!")
+        
+        return redirect("/catalog/NewComplaint")
     
     else:
         return render(request, "catalog/NewComplaint.html")
+
+
+def ComplaintHistory(request):
+    
+    temp = request.user
+    
+    comp = ComplaintDetail.objects.filter(user_Key=temp).all()
+    
+    d = dict()
+    for i in comp:
+        
+        lst = [i.typeOfComplaint, i.complaintDetail, i.remark, i.complaintDate.date()]
+        
+        temp = dict()
+        temp["typeOfComplaint"] = i.typeOfComplaint
+        temp["complaintDetail"] = i.complaintDetail
+        temp["remark"] = i.remark
+        temp["complaintDate"] = i.complaintDate.date()
+        
+        d[i.id] = temp
+        
+    
+    return render(request, "catalog/ComplaintHistory.html", {"d":d})

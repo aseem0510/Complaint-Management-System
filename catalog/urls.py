@@ -7,4 +7,5 @@ urlpatterns = [
     # path("changePassword", views.changePassword, name="changePassword"),
     path("profile", views.profile, name="profile"),
     path("NewComplaint", views.NewComplaint, name="NewComplaint"),
+    path("ComplaintHistory", views.ComplaintHistory, name="ComplaintHistory"),
 ]
