@@ -18,5 +18,18 @@ class UserInfo(models.Model):
     
     def __str__(self):
         return self.idNumber
+
+
+class ComplaintDetail(models.Model):
+    
+    typeOfComplaint = models.CharField(max_length=50)
+    complaintDetail = models.TextField()
+    remark = models.CharField(max_length=30, default="Submitted")
+    complaintDate = models.DateTimeField(auto_now_add = True, auto_now = False)
+    
+    user_Key = models.ForeignKey(User, on_delete=models.CASCADE, related_name="compDetail")
+    
+    def __str__(self):
+        return self.typeOfComplaint
     
     

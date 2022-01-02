@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 
 from django.contrib.auth import authenticate
 
-from catalog.models import UserInfo
+from catalog.models import UserInfo, ComplaintDetail
 
 # Create your views here.
 
@@ -114,7 +114,10 @@ def NewComplaint(request):
         typeOfComplaint = request.POST.get("typeOfComplaint")
         complaintDetail = request.POST.get("complaintDetail")
         
-        print(typeOfComplaint, complaintDetail)
+        temp = request.user
+        
+        comp = ComplaintDetail(typeOfComplaint=typeOfComplaint, complaintDetail=complaintDetail, user_Key=temp)
+        comp.save()
         
         return redirect("/catalog/dashboard")
     
