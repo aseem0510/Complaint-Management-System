@@ -55,6 +55,7 @@ def changePassword(request):
 def profile(request):
     
     if request.method == "POST":
+        
         email = request.POST.get("email")
         phone = request.POST.get("phone")
         idNumber = request.POST.get("idNumber")
@@ -104,3 +105,18 @@ def profile(request):
     
     else:
         return render(request, "catalog/profile.html")
+
+
+def NewComplaint(request):
+    
+    if request.method == "POST":
+        
+        typeOfComplaint = request.POST.get("typeOfComplaint")
+        complaintDetail = request.POST.get("complaintDetail")
+        
+        print(typeOfComplaint, complaintDetail)
+        
+        return redirect("/catalog/dashboard")
+    
+    else:
+        return render(request, "catalog/NewComplaint.html")
