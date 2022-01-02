@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+
+    <head>
+
+        <title>Download Complaints Pdf</title>
+
+        <style>
+
+            table, th, td{
+                border:1px solid black;
+                padding-top: 5px;
+                padding-bottom: 5px;
+              }
+
+
+            .design{
+                padding-left: 10px;
+            }
+
+        </style>
+
+        <script src="extensions/resizable/bootstrap-table-resizable.js"></script>
+
+    </head>
+    
+    <body>
+
+        <h1>Complaint Record</h1>
+
+        <h3><u>Personal Information</u></h3>
+
+            <b>Name:</b> {{temp.first_name}} {{temp.last_name}} <br>
+            <b>Username:</b> {{temp.username}} <br>
+            <b>Email:</b> {{temp.email}} <br>
+
+
+        <h3><u>Complaint History</u></h3>
+
+        <table style="width:80%">
+        
+            <tr>
+                <th>S.No.</th>
+                <th>Type of Complaint</th>
+                <th>Complaint Detail</th>
+                <th>Remark</th>
+                <th>Date of Complaint</th>
+            </tr>
+            
+            {% for key, value in d.items %}
+                    
+                <tr>
+                    <td >{{forloop.counter}}</td>
+                    <td >{{value.typeOfComplaint}}</td>
+                    <td >{{value.complaintDetail}}</td>
+                    <td ><strong>{{value.remark}}</strong></td>
+                    <td >{{value.complaintDate}}</td>
+                    
+                </tr>
+    
+    
+            {% endfor %}
+    
+        </table>
+
+    </body>
+
+</html>

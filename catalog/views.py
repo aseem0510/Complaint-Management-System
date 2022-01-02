@@ -8,7 +8,15 @@ from django.contrib.auth import authenticate
 
 from catalog.models import UserInfo, ComplaintDetail
 
-from collections import defaultdict
+
+# importing for downloading the pdf
+
+from django.http import HttpResponse
+from django.template.loader import get_template
+from xhtml2pdf import pisa
+
+
+
 
 # Create your views here.
 
@@ -150,3 +158,55 @@ def ComplaintHistory(request):
         
     
     return render(request, "catalog/ComplaintHistory.html", {"d":d})
+
+
+def render_pdf_view(request):
+    
+    # fetching data from database
+    
+    temp = request.user
+    
+    comp = ComplaintDetail.objects.filter(user_Key=temp).all()
+    
+    d = dict()
+    for i in comp:
+        
+        lst = [i.typeOfComplaint, i.complaintDetail, i.remark, i.complaintDate.date()]
+        
+        temp = dict()
+        temp["typeOfComplaint"] = i.typeOfComplaint
+        temp["complaintDetail"] = i.complaintDetail
+        temp["remark"] = i.remark
+        temp["complaintDate"] = i.complaintDate.date()
+        
+        d[i.id] = temp
+    
+    
+    temp = request.user
+    
+    # creating pdf
+    
+    template_path = 'catalog/DownloadPdf.html'
+    context = {'d': d, 'temp': temp}
+    
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+    
+    # if want only download
+    # response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+    
+    # if display
+    response['Content-Disposition'] = 'filename="Complaint.pdf"'
+    
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    
+    # if error then show some funy view
+    if pisa_status.err:
+       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
