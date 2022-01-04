@@ -1,5 +1,3 @@
-
-
 <!doctype html>
 <html lang="en">
 
@@ -46,6 +44,8 @@
 
         <h3><u>Complaint History</u></h3>
 
+        <!-- Table create karne se html, css sahi karna padega , things are overlapping -->
+        <!--
         <table style="width:80%">
         
             <tr>
@@ -71,6 +71,20 @@
             {% endfor %}
     
         </table>
+        -->       
+        
+        {% for key, value in d.items %}
+                
+                <b>Complaint:</b> {{forloop.counter}} <br>
+                <b>Type of Complaint:</b> {{value.typeOfComplaint}} <br>
+                <b>Complaint Detail:</b> {{value.complaintDetail}} <br>
+                <b>Remark:</b> <strong>{{value.remark}}</strong> <br>
+                <b>Date of Complaint:</b> {{value.complaintDate}} <br>
+
+                <br><br>
+
+        {% endfor %}
+
 
     </body>
 
