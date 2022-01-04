@@ -107,9 +107,9 @@ def profile(request):
             temp.email = email
             temp.save()
         
-        temp1 = temp.detail
-        
-        if temp is not None:
+        try:
+            
+            temp1 = temp.detail
             
             if phone != "":
                 temp1.phone = phone
@@ -131,7 +131,8 @@ def profile(request):
             
             temp1.save()
             
-        else:
+        except:
+            
             u = UserInfo(phone=phone, idNumber=idNumber, department=department, designation=designation, gender=gender, category=category, user_Id=temp)
             u.save()
         
