@@ -21,7 +21,32 @@ from xhtml2pdf import pisa
 # Create your views here.
 
 def dashboard(request):
-    return render(request, 'catalog/dashboard.html')
+    
+    temp = request.user
+    
+    comp = ComplaintDetail.objects.filter(user_Key=temp).all()
+    
+    submitted = 0
+    inProgress = 0
+    close = 0
+    for i in comp:
+        
+        qq = i.remark
+        qq = qq.lower()
+        
+        if qq == "submitted":
+            submitted += 1
+        
+        elif qq == "in progress":
+            inProgress += 1
+        
+        elif qq == "close":
+            close += 1
+    
+    
+    d = {"submitted": submitted, "inProgress": inProgress, "close": close}
+        
+    return render(request, 'catalog/dashboard.html', {"d": d})
 
 """
 def changePassword(request):
@@ -187,7 +212,13 @@ def render_pdf_view(request):
     # creating pdf
     
     template_path = 'catalog/DownloadPdf.html'
-    context = {'d': d, 'temp': temp}
+    
+    try:
+        temp1 = temp.detail
+        context = {'d': d, 'temp': temp, 'temp1': temp1}
+    
+    except:
+        context = {'d': d, 'temp': temp}
     
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
